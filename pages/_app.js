@@ -17,6 +17,7 @@ function MyApp({ Component, pageProps }) {
             </Head>
             <MoralisProvider appId={APP_ID} serverUrl={SERVER_URL}>
                 <NotificationProvider>
+                    <Header />
                     <Component {...pageProps} />
                 </NotificationProvider>
             </MoralisProvider>
