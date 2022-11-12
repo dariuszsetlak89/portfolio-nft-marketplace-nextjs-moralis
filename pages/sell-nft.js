@@ -1,7 +1,7 @@
 import { Form, useNotification, Button } from "@web3uikit/core";
 import { useMoralis, useWeb3Contract } from "react-moralis";
 import { ethers } from "ethers";
-import nftAbi from "../constants/BasicNft.json";
+import nftAbi from "../constants/CuteNft.json";
 import nftMarketplaceAbi from "../constants/NftMarketplace.json";
 import contractAddresses from "../constants/contractAddresses.json";
 import { useEffect, useState } from "react";
