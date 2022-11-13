@@ -1,11 +1,12 @@
+import Head from "next/head";
 import Layout from "../components/Layout";
-import BuyNft from "../components/BuyNft";
+import SellNft from "../components/SellNft";
 
 export default function Home() {
     return (
         <div>
             <Layout>
-                <BuyNft />
+                <SellNft />
             </Layout>
         </div>
     );
