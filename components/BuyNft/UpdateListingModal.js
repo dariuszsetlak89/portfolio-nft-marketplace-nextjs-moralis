@@ -1,9 +1,3 @@
-import { Modal, Input, useNotification } from "@web3uikit/core";
-import { useState } from "react";
-import { useWeb3Contract } from "react-moralis";
-import nftMarketplaceAbi from "../constants/NftMarketplace.json";
-import { ethers } from "ethers";
-
 export default function UpdateListingModal({
     nftAddress,
     tokenId,
@@ -11,22 +5,21 @@ export default function UpdateListingModal({
     marketplaceAddress,
     onClose,
 }) {
+    ///////////////////
+    //  State Hooks  //
+    ///////////////////
+    const [newListingPrice, setNewListingPrice] = useState(0);
+
+    /////////////////////
+    //  Notifications  //
+    /////////////////////
     const dispatch = useNotification();
 
-    const [priceToUpdateListingWith, setPriceToUpdateListingWith] = useState(0);
+    ////////////////////////
+    // Contract Functions //
+    ////////////////////////
 
-    const handleUpdateListingSuccess = async (tx) => {
-        await tx.wait(1);
-        dispatch({
-            type: "success",
-            message: "listing updated",
-            title: "Listing updated - please refresh (and move blocks)",
-            position: "topR",
-        });
-        onClose && onClose();
-        setPriceToUpdateListingWith("0");
-    };
-
+    // Function: updateListing
     const { runContractFunction: updateListing } = useWeb3Contract({
         abi: nftMarketplaceAbi,
         contractAddress: marketplaceAddress,
@@ -37,6 +30,23 @@ export default function UpdateListingModal({
             newPrice: ethers.utils.parseEther(priceToUpdateListingWith || "0"),
         },
     });
+
+    ///////////////////////
+    // Handler Functions //
+    ///////////////////////
+
+    // Handle update listing success function
+    const handleUpdateListingSuccess = async (tx) => {
+        await tx.wait(1);
+        dispatch({
+            type: "success",
+            message: "listing updated",
+            title: "Listing updated - please refresh (and move blocks)",
+            position: "bottomL",
+        });
+        onClose && onClose();
+        setNewListingPrice("0");
+    };
 
     return (
         <Modal
@@ -53,11 +63,11 @@ export default function UpdateListingModal({
             }}
         >
             <Input
-                label="Update listing price in L1 Currency (ETH)"
+                label="Update NFT listing price in ETH"
                 name="New listing price"
                 type="number"
                 onChange={(event) => {
-                    setPriceToUpdateListingWith(event.target.value);
+                    setNewListingPrice(event.target.value);
                 }}
             />
         </Modal>
