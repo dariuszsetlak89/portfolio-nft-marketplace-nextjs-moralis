@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Modal, Card } from "@web3uikit/core";
 import { ethers } from "ethers";
-import { Tooltip } from "@web3uikit/core";
 import Image from "next/image";
 import BuyModal from "./BuyModal";
+import ReactTooltip from "react-tooltip";
 
 export default function BuyerModal({
     isVisible,
@@ -37,25 +37,26 @@ export default function BuyerModal({
         <div>
             {/* Buyer modal */}
             <Modal
-                title={<div className="buyerModalTitle">Do you want to buy me?</div>}
+                title={<div className="buyerModalTitle">Want to buy me?</div>}
                 isVisible={isVisible}
                 width="800px"
                 onCloseButtonPressed={onClose}
-                customFooter={<p>Do you want to buy me?</p>}
+                customFooter={<p>Want to buy me?</p>}
             >
                 <div>
                     <div className="mx-52">
                         {/* NFT item card */}
-                        <Card title={tokenName} description={tokenDescription}>
-                            <div className="buyerModalNftCard">
-                                <div>
-                                    <div className="text-2xl font-bold">#{tokenId}</div>
-                                    <div className="italic">
-                                        Owned by <span className="font-bold">{cuttedSellerAddress}</span>
+                        <div data-tip="Buy Me!">
+                            <ReactTooltip place="left" type="success" effect="float" />
+                            <Card title={tokenName} description={tokenDescription}>
+                                <div className="buyerModalNftCard">
+                                    <div>
+                                        <div className="text-2xl font-bold">#{tokenId}</div>
+                                        <div className="italic">
+                                            Owned by <span className="font-bold">{cuttedSellerAddress}</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="buyerModalNftCardImage">
-                                    <Tooltip content={"Buy me!"} position="left" minWidth={80} bgColor="#ff0000">
+                                    <div className="buyerModalNftCardImage">
                                         <Image
                                             loader={() => imageURI}
                                             src={imageURI}
@@ -65,11 +66,13 @@ export default function BuyerModal({
                                             priority="true"
                                             unoptimized
                                         />
-                                    </Tooltip>
+                                    </div>
+                                    <div className="font-bold">
+                                        Price: {ethers.utils.formatUnits(price, "ether")} ETH
+                                    </div>
                                 </div>
-                                <div className="font-bold">Price: {ethers.utils.formatUnits(price, "ether")} ETH</div>
-                            </div>
-                        </Card>
+                            </Card>
+                        </div>
                     </div>
                     <div>
                         {/* Buy item? */}

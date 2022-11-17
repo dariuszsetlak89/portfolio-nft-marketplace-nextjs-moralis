@@ -76,6 +76,7 @@ export default function BuyModal({ isVisible, marketplaceAddress, nftAddress, to
                         4. Refresh page to see, that your NFT is not listed at the marketplace, because you just bought
                         it!
                     </p>
+                    <p>5. Check your new NFT in your wallet.</p>
                 </div>
                 <div className="buyModalShowPrice">
                     <div className="buyModalShowPriceDescription">

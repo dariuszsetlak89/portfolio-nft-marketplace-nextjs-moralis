@@ -118,7 +118,7 @@
     @apply flex flex-wrap m-6;
 }
 
-.walletNotConnected {
+.connectionProblem {
     @apply mx-5 mt-5 mb-10 text-3xl font-bold text-green-600 text-center;
 }
 
@@ -227,7 +227,7 @@
 }
 
 .sellNftDescription {
-    @apply mx-5 mt-5 mb-10 text-xl font-medium text-left;
+    @apply m-5 text-xl font-medium text-center;
 }
 
 .sellNftForm {

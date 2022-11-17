@@ -24,7 +24,8 @@
     "parse": "^3.4.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-moralis": "^1.4.2"
+    "react-moralis": "^1.4.2",
+    "react-tooltip": "^4.5.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
