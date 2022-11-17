@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.myButtonLime {
+    @apply m-5 p-5 w-48 text-3xl text-lime-700 font-medium bg-lime-400 
+    hover:bg-lime-500 active:bg-lime-600 border-4 border-lime-600 rounded-3xl
+    transform hover:scale-125 transition ease-out duration-500;
+}
+
+.myButtonBlue {
+    @apply m-5 p-5 w-48 text-3xl text-blue-600 font-medium bg-blue-300 
+    hover:bg-blue-400 active:bg-blue-500 border-4 border-blue-600 rounded-3xl
+    transform hover:scale-125 transition ease-out duration-500;
+}
+
+.myButtonGreen {
+    @apply m-5 p-5 w-64 text-3xl text-green-800 font-medium bg-green-400 
+    hover:bg-green-500 active:bg-green-600 border-4 border-green-700 rounded-3xl
+    transform hover:scale-125 transition ease-out duration-500;
+}
+
+.myButtonRed {
+    @apply m-5 p-5 w-64 text-3xl text-red-800 font-medium bg-red-400 
+    hover:bg-red-500 active:bg-red-600 border-4 border-red-700 rounded-3xl
+    transform hover:scale-125 transition ease-out duration-500;
+}
+
+.refreshButton {
+    @apply p-3 rounded-full bg-lime-400 hover:bg-lime-500 active:bg-lime-600 cursor-pointer
+    transform hover:scale-125 transition ease-out duration-1000 hover:rotate-180;
+}
+
+.nftOwner {
+    @apply border-4 border-green-500 rounded-3xl;
+}
+
+.notNftOwner {
+    @apply border-4 border-blue-500 rounded-3xl;
+}

@@ -64,10 +64,10 @@
     {
         "type": "event",
         "anonymous": false,
-        "name": "ProceedsWithdrawalSuccess",
+        "name": "ProceedsWithdrawal",
         "inputs": [
             { "type": "address", "name": "seller", "indexed": true },
-            { "type": "uint256", "name": "proceeds", "indexed": true }
+            { "type": "uint256", "name": "amount", "indexed": true }
         ]
     },
     {

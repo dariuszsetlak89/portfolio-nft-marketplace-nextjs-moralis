@@ -5,9 +5,9 @@ import Footer from "./Footer";
 
 export default function Layout({ children }) {
     return (
-        <div className="font-sans pt-10 pb-40 bg-lime-200">
+        <div className="font-sans pt-10 pb-60 bg-lime-200">
             <div
-                className="mx-auto max-w-4xl overflow-hidden border-4
+                className="mx-auto max-w-6xl overflow-hidden border-4
                 border-lime-400 rounded-xl bg-lime-300"
             >
                 <Header />

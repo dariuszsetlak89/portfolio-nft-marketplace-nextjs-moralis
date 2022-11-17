@@ -13,8 +13,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.1",
     "@web3uikit/core": "^0.2.4",
     "@web3uikit/web3": "^0.2.2",
+    "graphql": "^16.6.0",
     "magic-sdk": "^10.0.0",
     "moralis": "^2.6.7",
     "moralis-v1": "^1.11.0",

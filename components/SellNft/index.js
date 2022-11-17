@@ -136,81 +136,91 @@ export default function Home() {
     }
 
     return (
-        <div className="container mx-auto p-5">
-            <h1 className="m-5 text-3xl font-bold text-green-600 text-center">Sell your NFT item</h1>
-            <div className="mx-5 mt-5 mb-10 text-xl font-medium text-center">
-                <div className="mx-20">
-                    Fulfill the form with your owned NFT item data, which you want to list and simply list it on the
-                    Marketplace!
-                </div>
-            </div>
-            <div className="mx-20 px-20 bg-lime-300 text-center flex flex-col">
-                <Form
-                    onSubmit={approveAndList}
-                    customFooter={
-                        <div style={{ display: "flex", justifyContent: "center" }}>
-                            <Button size="large" text="Confirm" theme="primary" type="submit" />
+        <div className="container mx-auto p-5 min-h-content">
+            {isWeb3Enabled ? (
+                <div>
+                    <h1 className="m-5 text-4xl font-bold text-green-600 text-center">Sell your NFT item</h1>
+                    <div className="mx-5 mt-5 mb-10 text-xl font-medium text-center">
+                        <div className="mx-20">
+                            Fulfill the form with your owned NFT item data, which you want to list and simply list it on
+                            the Marketplace!
                         </div>
-                    }
-                    data={[
-                        {
-                            name: "NFT Address",
-                            type: "text",
-                            inputWidth: "100%",
-                            value: "",
-                            key: "nftAddress",
-                        },
-                        {
-                            name: "Token ID",
-                            type: "number",
-                            inputWidth: "50%",
-                            value: "",
-                            key: "tokenId",
-                        },
-                        {
-                            name: "Price (in ETH)",
-                            type: "number",
-                            inputWidth: "50%",
-                            value: "",
-                            key: "price",
-                        },
-                    ]}
-                    title="Sell NFT form"
-                    id="Main Form"
-                    theme="primary"
-                    buttonConfig={{
-                        theme: "primary",
-                    }}
-                />
-                <div className="my-10">
-                    <div className="mx-5 text-xl font-medium">
-                        Withdraw proceeds: {ethers.utils.formatEther(proceeds)} ETH
                     </div>
-                    {proceeds != "0" ? (
-                        <Button
-                            onClick={() => {
-                                // Run contract function: withdrawProceeds
-                                runContractFunction({
-                                    params: {
-                                        abi: nftMarketplaceAbi,
-                                        contractAddress: marketplaceAddress,
-                                        functionName: "withdrawProceeds",
-                                        params: {},
-                                    },
-                                    onError: (error) => console.log(error),
-                                    onSuccess: handleWithdrawSuccess,
-                                });
+                    <div className="mx-20 px-20 bg-lime-300 text-center flex flex-col">
+                        <Form
+                            onSubmit={approveAndList}
+                            customFooter={
+                                <div style={{ display: "flex", justifyContent: "center" }}>
+                                    <Button size="large" text="Confirm" theme="primary" type="submit" />
+                                </div>
+                            }
+                            data={[
+                                {
+                                    name: "NFT Address",
+                                    type: "text",
+                                    inputWidth: "100%",
+                                    value: "",
+                                    key: "nftAddress",
+                                },
+                                {
+                                    name: "Token ID",
+                                    type: "number",
+                                    inputWidth: "50%",
+                                    value: "",
+                                    key: "tokenId",
+                                },
+                                {
+                                    name: "Price (in ETH)",
+                                    type: "number",
+                                    inputWidth: "50%",
+                                    value: "",
+                                    key: "price",
+                                },
+                            ]}
+                            title="Sell NFT form"
+                            id="Main Form"
+                            theme="primary"
+                            buttonConfig={{
+                                theme: "primary",
                             }}
-                            text="Withdraw"
-                            type="button"
-                            theme="colored"
-                            color="green"
                         />
-                    ) : (
-                        <div className="mx-5 mt-5 mb-10 text-lg">No proceeds for withdrawal detected!</div>
-                    )}
+                        <div className="my-10">
+                            <div className="mx-5 text-2xl font-medium">
+                                Withdraw proceeds:{" "}
+                                <span className="font-bold">{ethers.utils.formatEther(proceeds)} ETH</span>
+                            </div>
+                            {proceeds != "0" ? (
+                                <div>
+                                    <button
+                                        className="myButton"
+                                        onClick={() => {
+                                            // Run contract function: withdrawProceeds
+                                            runContractFunction({
+                                                params: {
+                                                    abi: nftMarketplaceAbi,
+                                                    contractAddress: marketplaceAddress,
+                                                    functionName: "withdrawProceeds",
+                                                    params: {},
+                                                },
+                                                onError: (error) => console.log(error),
+                                                onSuccess: handleWithdrawSuccess,
+                                            });
+                                        }}
+                                    >
+                                        Withdraw
+                                    </button>
+                                </div>
+                            ) : (
+                                <div className="mx-5 mt-5 mb-10 text-lg">No proceeds for withdrawal detected!</div>
+                            )}
+                        </div>
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <h1 className="mx-5 mt-5 mb-10 text-3xl font-bold text-green-600 text-center">
+                    Web3 wallet not connected!
+                </h1>
+            )}
         </div>
     );
 }
