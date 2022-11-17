@@ -2,11 +2,11 @@ import Image from "next/image";
 
 export default function Header() {
     return (
-        <div className="px-10 pt-10 pb-5 md:flex">
-            <div className="basis-1/5 flex justify-center transform hover:scale-125 transition ease-out duration-500">
+        <div className="header">
+            <div className="headerLogo">
                 <Image src="/images/nft-graphics/nft-logo-green.png" alt="NFT gold coin" width={125} height={125} />
             </div>
-            <div className="m-auto basis-3/5 flex justify-center">
+            <div className="headerCaption">
                 <Image
                     src="/images/nft-marketplace-caption.png"
                     alt="NFT Marketplace wordart"
@@ -16,7 +16,7 @@ export default function Header() {
                     className="w-auto"
                 />
             </div>
-            <div className="basis-1/5 flex justify-center transform hover:scale-125 transition ease-out duration-500">
+            <div className="headerLogo">
                 <Image src="/images/nft-graphics/nft-logo-green.png" alt="NFT gold coin" width={125} height={125} />
             </div>
         </div>

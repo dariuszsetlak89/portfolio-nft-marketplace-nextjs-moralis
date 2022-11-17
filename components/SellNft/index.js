@@ -2,18 +2,17 @@ import { Form, useNotification, Button } from "@web3uikit/core";
 import { useMoralis, useWeb3Contract } from "react-moralis";
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
-import contractAddresses from "../../constants/contractAddresses.json";
-import nftMarketplaceAbi from "../../constants/NftMarketplace.json";
-import nftAbi from "../../constants/CuteNft.json";
+import { contractAddresses, nftMarketplaceAbi, nftAbi } from "../../constants";
 
 export default function Home() {
+    /////////////////////
+    // useMoralis Hook //
+    /////////////////////
     const { isWeb3Enabled, account, chainId: chainIdHex } = useMoralis();
 
     ///////////////////////////
     // Read contract address //
     ///////////////////////////
-
-    // Read connected network ID and contract address of connected network from `contractAddresses` file
     const chainId = parseInt(chainIdHex);
     const marketplaceAddress = chainId in contractAddresses ? contractAddresses[chainId]["NftMarketplace"][0] : null;
 
@@ -136,17 +135,25 @@ export default function Home() {
     }
 
     return (
-        <div className="container mx-auto p-5 min-h-content">
+        <div className="sellNft">
             {isWeb3Enabled ? (
                 <div>
-                    <h1 className="m-5 text-4xl font-bold text-green-600 text-center">Sell your NFT item</h1>
-                    <div className="mx-5 mt-5 mb-10 text-xl font-medium text-center">
+                    <h1 className="sellNftTitle">Sell your NFT item</h1>
+                    <div className="sellNftDescription">
                         <div className="mx-20">
-                            Fulfill the form with your owned NFT item data, which you want to list and simply list it on
-                            the Marketplace!
+                            <p>
+                                Fulfill the form with NFT data you want to list, click confirm button and confirm
+                                transaction in your wallet. And that's it! You have listed your own NFT on the
+                                Marketplace.
+                            </p>
+                            <p>
+                                If you successfully sold your NFT just click withdraw button below form to withdraw your
+                                proceeds to your private wallet.
+                            </p>
                         </div>
                     </div>
-                    <div className="mx-20 px-20 bg-lime-300 text-center flex flex-col">
+                    {/* Sell NFT form */}
+                    <div className="sellNftForm">
                         <Form
                             onSubmit={approveAndList}
                             customFooter={
@@ -165,14 +172,14 @@ export default function Home() {
                                 {
                                     name: "Token ID",
                                     type: "number",
-                                    inputWidth: "50%",
+                                    inputWidth: "75%",
                                     value: "",
                                     key: "tokenId",
                                 },
                                 {
                                     name: "Price (in ETH)",
                                     type: "number",
-                                    inputWidth: "50%",
+                                    inputWidth: "75%",
                                     value: "",
                                     key: "price",
                                 },
@@ -184,8 +191,9 @@ export default function Home() {
                                 theme: "primary",
                             }}
                         />
+                        {/* Withdraw proceeds */}
                         <div className="my-10">
-                            <div className="mx-5 text-2xl font-medium">
+                            <div className="sellNftWithdrawProceeds">
                                 Withdraw proceeds:{" "}
                                 <span className="font-bold">{ethers.utils.formatEther(proceeds)} ETH</span>
                             </div>
@@ -211,15 +219,13 @@ export default function Home() {
                                     </button>
                                 </div>
                             ) : (
-                                <div className="mx-5 mt-5 mb-10 text-lg">No proceeds for withdrawal detected!</div>
+                                <div className="sellNftNoProceeds">No proceeds for withdrawal detected!</div>
                             )}
                         </div>
                     </div>
                 </div>
             ) : (
-                <h1 className="mx-5 mt-5 mb-10 text-3xl font-bold text-green-600 text-center">
-                    Web3 wallet not connected!
-                </h1>
+                <h1 className="walletNotConnected">Web3 wallet not connected!</h1>
             )}
         </div>
     );

@@ -2,33 +2,92 @@
 @tailwind components;
 @tailwind utilities;
 
+.outerBackground {
+    @apply font-sans pt-10 pb-10 bg-lime-200 min-h-screen;
+}
+
+.innerBackground {
+    @apply mx-auto max-w-6xl overflow-hidden border-4 border-lime-400 bg-lime-300 rounded-3xl;
+}
+
+.footer {
+    @apply fixed bottom-0 left-0;
+}
+
+.header {
+    @apply px-10 pt-10 pb-5 md:flex;
+}
+
+.headerLogo {
+    @apply basis-1/5 flex justify-center transform hover:scale-125 transition ease-out duration-500;
+}
+
+.headerCaption {
+    @apply m-auto basis-3/5 flex justify-center;
+}
+
+.footerLogo {
+    @apply basis-1/5 flex justify-center transform hover:scale-125 transition ease-in-out duration-500;
+}
+
+.footerDescription {
+    @apply mt-5 flex justify-evenly;
+}
+
+.footerDescriptionText {
+    @apply p-5 text-2xl font-medium opacity-50 hover:opacity-100;
+}
+
+.footerDescriptionIcon {
+    @apply p-5 text-xl opacity-50 hover:opacity-100 rounded-full transition ease-in-out duration-500 cursor-pointer;
+}
+
+.navbar {
+    @apply p-5 border-b-4 border-lime-400 md:flex;
+}
+
+.navbarButton {
+    @apply basis-1/3 flex justify-center items-center;
+}
+
+.navbarChildren {
+    @apply basis-1/3 flex justify-center;
+}
+
+.connectorButton {
+    @apply py-5 flex justify-center;
+}
+
+.connectorConnected {
+    @apply text-2xl text-center text-green-600 font-bold;
+}
+
+.connectorNotSupportedChain {
+    @apply text-center text-red-600;
+}
+
+.connectorPleaseConnect {
+    @apply text-2xl text-center text-red-600 font-bold;
+}
+
 .myButtonLime {
-    @apply m-5 p-5 w-48 text-3xl text-lime-700 font-medium bg-lime-400 
-    hover:bg-lime-500 active:bg-lime-600 border-4 border-lime-600 rounded-3xl
-    transform hover:scale-125 transition ease-out duration-500;
+    @apply m-5 p-5 w-64 text-3xl text-lime-700 font-medium bg-lime-400 hover:bg-lime-500 active:bg-lime-600 border-4 border-lime-600 rounded-3xl transform hover:scale-125 transition ease-out duration-500;
 }
 
 .myButtonBlue {
-    @apply m-5 p-5 w-48 text-3xl text-blue-600 font-medium bg-blue-300 
-    hover:bg-blue-400 active:bg-blue-500 border-4 border-blue-600 rounded-3xl
-    transform hover:scale-125 transition ease-out duration-500;
+    @apply m-2 p-2 w-48 text-2xl text-blue-600 font-medium bg-blue-300 hover:bg-blue-400 active:bg-blue-500 border-4 border-blue-600 rounded-3xl transform hover:scale-125 transition ease-out duration-500;
 }
 
 .myButtonGreen {
-    @apply m-5 p-5 w-64 text-3xl text-green-800 font-medium bg-green-400 
-    hover:bg-green-500 active:bg-green-600 border-4 border-green-700 rounded-3xl
-    transform hover:scale-125 transition ease-out duration-500;
+    @apply m-2 p-2 w-48 text-2xl text-green-800 font-medium bg-green-400 hover:bg-green-500 active:bg-green-600 border-4 border-green-700 rounded-3xl transform hover:scale-125 transition ease-out duration-500;
 }
 
 .myButtonRed {
-    @apply m-5 p-5 w-64 text-3xl text-red-800 font-medium bg-red-400 
-    hover:bg-red-500 active:bg-red-600 border-4 border-red-700 rounded-3xl
-    transform hover:scale-125 transition ease-out duration-500;
+    @apply m-2 p-2 w-48 text-2xl text-red-800 font-medium bg-red-400 hover:bg-red-500 active:bg-red-600 border-4 border-red-700 rounded-3xl transform hover:scale-125 transition ease-out duration-500;
 }
 
 .refreshButton {
-    @apply p-3 rounded-full bg-lime-400 hover:bg-lime-500 active:bg-lime-600 cursor-pointer
-    transform hover:scale-125 transition ease-out duration-1000 hover:rotate-180;
+    @apply p-3 rounded-full bg-lime-400 hover:bg-lime-500 active:bg-lime-600 cursor-pointer transform hover:scale-125 transition ease-in-out duration-1000;
 }
 
 .nftOwner {
@@ -37,4 +96,148 @@
 
 .notNftOwner {
     @apply border-4 border-blue-500 rounded-3xl;
+}
+
+.buyNftIndex {
+    @apply container mx-auto py-5 min-h-fit border-b-4 border-lime-400;
+}
+
+.buyNftIndexTitle {
+    @apply m-5 text-4xl font-bold text-green-600 text-center;
+}
+
+.buyNftIndexDescription {
+    @apply m-5 text-xl font-medium text-center;
+}
+
+.buyNftIndexLoading {
+    @apply m-5 text-2xl text-orange-500 font-medium text-center;
+}
+
+.buyNftIndexItems {
+    @apply flex flex-wrap m-6;
+}
+
+.walletNotConnected {
+    @apply mx-5 mt-5 mb-10 text-3xl font-bold text-green-600 text-center;
+}
+
+.nftCard {
+    @apply p-3 flex flex-col gap-3 items-start;
+}
+
+.nftCardImage {
+    @apply container flex justify-center h-52;
+}
+
+.nftCardLoadingItem {
+    @apply text-xl font-bold animate-pulse;
+}
+
+.ownerModalTitle {
+    @apply p-2 text-3xl text-green-600 font-bold;
+}
+
+.ownerModalNftCard {
+    @apply px-5 pt-2 flex flex-col justify-between h-96;
+}
+
+.ownerModalNftCardImage {
+    @apply flex justify-center h-60 hover:scale-125 transition ease-in-out duration-500;
+}
+
+.ownerModalDescription {
+    @apply mt-10 text-2xl font-medium text-center;
+}
+
+.ownerModalButtons {
+    @apply m-5 flex justify-center;
+}
+
+.priceModalTitle {
+    @apply p-2 text-3xl text-green-600 font-bold;
+}
+
+.priceModalDescription {
+    @apply m-5 text-2xl font-medium;
+}
+
+.priceModalEnterTitle {
+    @apply mt-7 mb-7 text-2xl font-bold text-center;
+}
+
+.priceModalInputField {
+    @apply mx-5 my-5 flex justify-center;
+}
+
+.cancelModalTitle {
+    @apply p-2 text-3xl text-red-600 font-bold;
+}
+
+.cancelModalDescription {
+    @apply m-5 text-2xl font-medium;
+}
+
+.buyerModalTitle {
+    @apply p-2 text-3xl text-blue-600 font-bold;
+}
+
+.buyerModalNftCard {
+    @apply px-5 pt-2 flex flex-col justify-between h-96;
+}
+
+.buyerModalNftCardImage {
+    @apply flex justify-center h-64 hover:animate-bounce transition ease-in-out duration-1000;
+}
+
+.buyerModalDescription {
+    @apply mt-10 text-2xl font-medium text-center;
+}
+
+.buyerModalButton {
+    @apply m-5 mx-5 flex justify-center;
+}
+
+.buyModalTitle {
+    @apply p-2 text-3xl text-blue-600 font-bold;
+}
+
+.buyModalDescription {
+    @apply m-5 text-2xl font-medium;
+}
+
+.buyModalShowPrice {
+    @apply m-5 flex-row justify-center;
+}
+
+.buyModalShowPriceDescription {
+    @apply text-2xl font-medium text-center;
+}
+
+.buyModalBuyButton {
+    @apply m-2 text-center;
+}
+
+.sellNft {
+    @apply container mx-auto p-5 min-h-fit border-b-4 border-lime-400;
+}
+
+.sellNftTitle {
+    @apply m-5 text-4xl font-bold text-green-600 text-center;
+}
+
+.sellNftDescription {
+    @apply mx-5 mt-5 mb-10 text-xl font-medium text-left;
+}
+
+.sellNftForm {
+    @apply m-auto w-96 bg-lime-300 text-center flex flex-col min-w-fit;
+}
+
+.sellNftWithdrawProceeds {
+    @apply mx-5 text-2xl font-medium;
+}
+
+.sellNftNoProceeds {
+    @apply mx-5 mt-5 mb-10 text-lg;
 }

@@ -1,37 +1,40 @@
 import { useMoralis } from "react-moralis";
 import { useQuery } from "@apollo/client";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { Tooltip } from "@web3uikit/core";
-import contractAddresses from "../../constants/contractAddresses.json";
+import { contractAddresses } from "../../constants";
 import GET_ACTIVE_ITEMS from "../../constants/subgraphQueries";
-import ListedNft from "./ListedNft";
+import Image from "next/image";
+import NftCard from "./NftCard";
 
 export default function NftMarketplace() {
+    /////////////////////
+    // useMoralis Hook //
+    /////////////////////
     const { isWeb3Enabled, account, chainId: chainIdHex } = useMoralis();
+
+    ////////////////////
+    // useRouter Hook //
+    ////////////////////
     const router = useRouter();
 
     ///////////////////////////
     // Read contract address //
     ///////////////////////////
-
-    // Read connected network ID and contract address of connected network from `contractAddresses` file
     const chainId = parseInt(chainIdHex);
     const marketplaceAddress = chainId in contractAddresses ? contractAddresses[chainId]["NftMarketplace"][0] : null;
-    // console.log("chainId:", chainId);
-    // console.log("marketplaceAddress:", marketplaceAddress);
 
     ///////////////////
-    // UseQuery Hook //
+    // useQuery Hook //
     ///////////////////
-    const { loading, error, data: listedNfts } = useQuery(GET_ACTIVE_ITEMS);
+    const { loading, data: listedNfts } = useQuery(GET_ACTIVE_ITEMS);
 
     return (
-        <div className="container mx-auto py-5 min-h-content">
+        <div className="buyNftIndex">
             {isWeb3Enabled ? (
                 <div>
-                    <h1 className="m-5 text-4xl font-bold text-green-600 text-center">Listed NFT items</h1>
-                    <div className="m-5 text-xl font-medium text-center">
+                    <h1 className="buyNftIndexTitle">Listed NFT items</h1>
+                    <div className="buyNftIndexDescription">
                         <div>Want to grab NFT? Simply click on it and buy selected item!</div>
                         <div>
                             You are the NFT owner? Just click on it to update listing price or to cancel the listing.
@@ -47,25 +50,24 @@ export default function NftMarketplace() {
                                     width={32}
                                     height={32}
                                     onClick={() => router.reload()}
+                                    className="hover:animate-spin"
                                 />
                             </div>
                         </Tooltip>
                     </div>
-
+                    {/* Listed NFT items */}
                     <div className="flex justify-center">
                         {loading || !listedNfts == true ? (
-                            <div className="m-5 text-2xl text-orange-500 font-medium text-center">
-                                Loading listed NFT items...
-                            </div>
+                            <div className="buyNftIndexLoading">Loading listed NFT items...</div>
                         ) : (
-                            <div className="flex flex-wrap m-6 justify-left">
+                            <div className="buyNftIndexItems">
                                 {listedNfts.activeItems.map((nft) => {
                                     // Mapping through listed and active NFT items
                                     const { price, nftAddress, tokenId, seller } = nft;
                                     return (
                                         <div className="m-2 w-64" key={`${nftAddress}${tokenId}`}>
                                             <div className={seller == account ? "nftOwner" : "notNftOwner"}>
-                                                <ListedNft
+                                                <NftCard
                                                     price={price}
                                                     nftAddress={nftAddress}
                                                     tokenId={tokenId}
@@ -81,9 +83,7 @@ export default function NftMarketplace() {
                     </div>
                 </div>
             ) : (
-                <h1 className="mx-5 mt-5 mb-10 text-3xl font-bold text-green-600 text-center">
-                    Web3 wallet not connected!
-                </h1>
+                <h1 className="walletNotConnected">Web3 wallet not connected!</h1>
             )}
         </div>
     );

@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useWeb3Contract, useMoralis } from "react-moralis";
-import { Card, useNotification } from "@web3uikit/core";
+import { Card } from "@web3uikit/core";
 import { ethers } from "ethers";
+import { nftAbi } from "../../constants";
 import Image from "next/image";
-import nftAbi from "../../constants/CuteNft.json";
-import UpdateModal from "./Modals/UpdateModal";
-import BuyNftModal from "./Modals/BuyNftModal";
+import OwnerModal from "./Modals/OwnerModal";
+import BuyerModal from "./Modals/BuyerModal";
 
 export default function ListedNft({ price, nftAddress, tokenId, marketplaceAddress, seller }) {
     /////////////////////
@@ -19,15 +19,10 @@ export default function ListedNft({ price, nftAddress, tokenId, marketplaceAddre
     const [imageURI, setImageURI] = useState("");
     const [tokenName, setTokenName] = useState("");
     const [tokenDescription, setTokenDescription] = useState("");
-    const [showUpdateModal, setShowUpdateModal] = useState(false);
-    const hideUpdateModal = () => setShowUpdateModal(false);
-    const [showBuyModal, setShowBuyModal] = useState(false);
-    const hideBuyModal = () => setShowBuyModal(false);
-
-    /////////////////////
-    //  Notifications  //
-    /////////////////////
-    const dispatch = useNotification();
+    const [showOwnerModal, setShowOwnerModal] = useState(false);
+    const hideOwnerModal = () => setShowOwnerModal(false);
+    const [showBuyerModal, setShowBuyerModal] = useState(false);
+    const hideBuyerModal = () => setShowBuyerModal(false);
 
     ////////////////////
     // useEffect Hook //
@@ -42,7 +37,7 @@ export default function ListedNft({ price, nftAddress, tokenId, marketplaceAddre
     // Contract Functions //
     ////////////////////////
 
-    // Function: getTokenURI
+    // Contract function: getTokenURI
     const { runContractFunction: getTokenURI } = useWeb3Contract({
         abi: nftAbi,
         contractAddress: nftAddress,
@@ -100,56 +95,62 @@ export default function ListedNft({ price, nftAddress, tokenId, marketplaceAddre
 
     // Handle card click function
     const handleCardClick = () => {
-        isOwnedByUser ? setShowUpdateModal(true) : setShowBuyModal(true);
+        isOwnedByUser ? setShowOwnerModal(true) : setShowBuyerModal(true);
     };
 
     return (
         <div>
             {imageURI ? (
                 <div>
-                    <UpdateModal
-                        isVisible={showUpdateModal}
-                        tokenId={tokenId}
+                    <OwnerModal
+                        isVisible={showOwnerModal}
                         marketplaceAddress={marketplaceAddress}
                         nftAddress={nftAddress}
-                        onClose={hideUpdateModal}
-                    />
-                    <BuyNftModal
-                        isVisible={showBuyModal}
                         tokenId={tokenId}
-                        marketplaceAddress={marketplaceAddress}
-                        nftAddress={nftAddress}
+                        imageURI={imageURI}
+                        tokenName={tokenName}
+                        tokenDescription={tokenDescription}
                         price={price}
-                        onClose={hideBuyModal}
+                        cuttedSellerAddress={cuttedSellerAddress}
+                        onClose={hideOwnerModal}
+                    />
+                    <BuyerModal
+                        isVisible={showBuyerModal}
+                        marketplaceAddress={marketplaceAddress}
+                        nftAddress={nftAddress}
+                        tokenId={tokenId}
+                        imageURI={imageURI}
+                        tokenName={tokenName}
+                        tokenDescription={tokenDescription}
+                        price={price}
+                        cuttedSellerAddress={cuttedSellerAddress}
+                        onClose={hideBuyerModal}
                     />
                     <Card title={tokenName} description={tokenDescription} onClick={handleCardClick}>
-                        <div className="p-3">
-                            <div className="flex flex-col gap-3 items-start">
-                                <div className={isOwnedByUser ? "text-green-500" : "text-blue-500"}>
-                                    <div className="text-xl font-bold">#{tokenId}</div>
-                                    <div className="italic text-sm">
-                                        Owned by <span className="font-bold">{cuttedSellerAddress}</span>
-                                    </div>
+                        <div className="nftCard">
+                            <div className={isOwnedByUser ? "text-green-500" : "text-blue-500"}>
+                                <div className="text-xl font-bold">#{tokenId}</div>
+                                <div className="italic text-sm">
+                                    Owned by <span className="font-bold">{cuttedSellerAddress}</span>
                                 </div>
-                                <div className="container flex justify-center">
-                                    <Image
-                                        loader={() => imageURI}
-                                        src={imageURI}
-                                        alt="Listed NFT item"
-                                        height={200}
-                                        width={200}
-                                        priority="true"
-                                        unoptimized
-                                        className="h-48 w-auto"
-                                    />
-                                </div>
-                                <div className="font-bold">Price: {ethers.utils.formatUnits(price, "ether")} ETH</div>
                             </div>
+                            <div className="nftCardImage">
+                                <Image
+                                    loader={() => imageURI}
+                                    src={imageURI}
+                                    alt="Listed NFT item"
+                                    height={200}
+                                    width={200}
+                                    priority="true"
+                                    unoptimized
+                                />
+                            </div>
+                            <div className="font-bold">Price: {ethers.utils.formatUnits(price, "ether")} ETH</div>
                         </div>
                     </Card>
                 </div>
             ) : (
-                <div className="text-xl text-bold">Loading...</div>
+                <div className="nftCardLoadingItem">Loading item...</div>
             )}
         </div>
     );

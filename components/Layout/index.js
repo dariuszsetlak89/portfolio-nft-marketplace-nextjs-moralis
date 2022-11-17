@@ -1,21 +1,18 @@
 import Header from "./Header";
-import Connector from "./Connector";
 import Navbar from "./Navbar";
+import Connector from "./Connector";
 import Footer from "./Footer";
 
 export default function Layout({ children }) {
     return (
-        <div className="font-sans pt-10 pb-60 bg-lime-200">
-            <div
-                className="mx-auto max-w-6xl overflow-hidden border-4
-                border-lime-400 rounded-xl bg-lime-300"
-            >
+        <div className="outerBackground">
+            <div className="innerBackground">
                 <Header />
                 <Navbar>
                     <Connector />
                 </Navbar>
-                <div className="border-b-4 border-lime-400">{children}</div>
-                <Footer className="fixed bottom-0 left-0" />
+                <div>{children}</div>
+                <Footer className="footer" />
             </div>
         </div>
     );
