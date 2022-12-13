@@ -6,19 +6,9 @@ import { nftMarketplaceAbi } from "../../../constants";
 import LoadingSpinner from "../../Animations/LoadingSpinner";
 
 export default function BuyModal({ isVisible, marketplaceAddress, nftAddress, tokenId, price, onClose }) {
-    ///////////////////
-    //  State Hooks  //
-    ///////////////////
     const [isLoading, setIsLoading] = useState(false);
 
-    /////////////////////
-    //  Notifications  //
-    /////////////////////
     const dispatch = useNotification();
-
-    ////////////////////////
-    // Contract Functions //
-    ////////////////////////
 
     // Contract function: BuyItem
     const { runContractFunction: buyItem } = useWeb3Contract({
@@ -31,10 +21,6 @@ export default function BuyModal({ isVisible, marketplaceAddress, nftAddress, to
             tokenId: tokenId,
         },
     });
-
-    ///////////////////////
-    // Handler Functions //
-    ///////////////////////
 
     // Handle buy item function
     const handleBuyItem = async () => {

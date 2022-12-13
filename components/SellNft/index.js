@@ -11,53 +11,30 @@ import ReactTooltip from "react-tooltip";
 const supportedChainsIds = ["31337", "5"];
 
 export default function Home() {
-    /////////////////////
-    // useMoralis Hook //
-    /////////////////////
     const { isWeb3Enabled, account, chainId: chainIdHex } = useMoralis();
 
-    ////////////////////
-    // useRouter Hook //
-    ////////////////////
     const router = useRouter();
 
-    ///////////////////////////
-    // Read contract address //
-    ///////////////////////////
     const chainId = parseInt(chainIdHex);
     const marketplaceAddress = chainId in contractAddresses ? contractAddresses[chainId]["NftMarketplace"][0] : null;
 
-    ///////////////////
-    //  State Hooks  //
-    ///////////////////
     const [proceeds, setProceeds] = useState("0");
 
-    /////////////////////
-    //  Notifications  //
-    /////////////////////
     const dispatch = useNotification();
 
-    ////////////////////
-    // useEffect Hook //
-    ////////////////////
     useEffect(() => {
         if (isWeb3Enabled) {
             setupUI();
         }
     }, [proceeds, account, isWeb3Enabled, chainId]);
 
-    ////////////////////////
-    // Contract Functions //
-    ////////////////////////
     const { runContractFunction } = useWeb3Contract();
 
     // Approval and listing
     async function approveAndList(data) {
-        // console.log("Approving...");
         const nftAddress = data.data[0].inputResult;
         const tokenId = data.data[1].inputResult;
         const price = ethers.utils.parseUnits(data.data[2].inputResult, "ether").toString();
-        // console.log("price:", price);
 
         const approveOptions = {
             abi: nftAbi,
@@ -81,7 +58,6 @@ export default function Home() {
 
     // Function handle approve success
     async function handleApproveSuccess(nftAddress, tokenId, price) {
-        // console.log("Let's list NFT item!");
         const listOptions = {
             abi: nftMarketplaceAbi,
             contractAddress: marketplaceAddress,
@@ -121,10 +97,6 @@ export default function Home() {
             position: "bottomL",
         });
     };
-
-    //////////////////
-    // UI Functions //
-    //////////////////
 
     // Function setupUI
     async function setupUI() {

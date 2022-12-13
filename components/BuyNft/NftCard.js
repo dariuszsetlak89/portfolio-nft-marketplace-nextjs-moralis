@@ -8,14 +8,8 @@ import OwnerModal from "./Modals/OwnerModal";
 import BuyerModal from "./Modals/BuyerModal";
 
 export default function ListedNft({ price, nftAddress, tokenId, marketplaceAddress, seller }) {
-    /////////////////////
-    // useMoralis Hook //
-    /////////////////////
     const { isWeb3Enabled, account } = useMoralis();
 
-    ///////////////////
-    //  State Hooks  //
-    ///////////////////
     const [imageURI, setImageURI] = useState("");
     const [tokenName, setTokenName] = useState("");
     const [tokenDescription, setTokenDescription] = useState("");
@@ -24,18 +18,11 @@ export default function ListedNft({ price, nftAddress, tokenId, marketplaceAddre
     const [showBuyerModal, setShowBuyerModal] = useState(false);
     const hideBuyerModal = () => setShowBuyerModal(false);
 
-    ////////////////////
-    // useEffect Hook //
-    ////////////////////
     useEffect(() => {
         if (isWeb3Enabled) {
             updateUI();
         }
     }, [isWeb3Enabled]);
-
-    ////////////////////////
-    // Contract Functions //
-    ////////////////////////
 
     // Contract function: getTokenURI
     const { runContractFunction: getTokenURI } = useWeb3Contract({
@@ -47,35 +34,22 @@ export default function ListedNft({ price, nftAddress, tokenId, marketplaceAddre
         },
     });
 
-    //////////////////
-    // UI Functions //
-    //////////////////
-
     // UpdateUI function - download tokenURI data for single NFT item
     async function updateUI() {
         // Get tokenURI
         const tokenURI = await getTokenURI();
-        // console.log(`The TokenURI is ${tokenURI}`);
         // Get the image using the image tag from the tokenURI
         if (tokenURI) {
             // IPFS Gateway: A server that will return IPFS files from a "normal" URL.
             const requestURL = tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/");
-            // console.log("requestURL:", requestURL);
             const tokenURIResponse = await (await fetch(requestURL)).json();
-            // console.log("tokenURIResponse:", tokenURIResponse);
             const imageURI = tokenURIResponse.image;
-            // console.log("imageURI:", imageURI);
             const imageURIURL = imageURI.replace("ipfs://", "https://ipfs.io/ipfs/");
-            // console.log("imageURIURL:", imageURIURL);
             setImageURI(imageURIURL);
             setTokenName(tokenURIResponse.name);
             setTokenDescription(tokenURIResponse.description);
         }
     }
-
-    //////////////////////
-    // Helper Functions //
-    //////////////////////
 
     // Address cutter function
     const addressCutter = (fullAddress, shortAddressLength) => {
@@ -85,10 +59,6 @@ export default function ListedNft({ price, nftAddress, tokenId, marketplaceAddre
         const backChars = fullAddress.substring(fullAddress.length - 4);
         return frontChars + separator + backChars;
     };
-
-    ///////////////////////
-    // Handler Functions //
-    ///////////////////////
 
     const isOwnedByUser = seller === account || seller === undefined;
     const cuttedSellerAddress = isOwnedByUser ? "You" : addressCutter(seller || "", 15);

@@ -10,25 +10,13 @@ import ReactTooltip from "react-tooltip";
 const supportedChainsIds = ["31337", "5"];
 
 export default function NftMarketplace() {
-    /////////////////////
-    // useMoralis Hook //
-    /////////////////////
     const { isWeb3Enabled, account, chainId: chainIdHex } = useMoralis();
 
-    ////////////////////
-    // useRouter Hook //
-    ////////////////////
     const router = useRouter();
 
-    ///////////////////////////
-    // Read contract address //
-    ///////////////////////////
     const chainId = parseInt(chainIdHex);
     const marketplaceAddress = chainId in contractAddresses ? contractAddresses[chainId]["NftMarketplace"][0] : null;
 
-    ///////////////////
-    // useQuery Hook //
-    ///////////////////
     const { loading, data: listedNfts } = useQuery(GET_ACTIVE_ITEMS);
 
     return (

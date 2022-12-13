@@ -6,20 +6,10 @@ import { ethers } from "ethers";
 import LoadingSpinner from "../../Animations/LoadingSpinner";
 
 export default function UpdateListingModal({ isVisible, tokenId, marketplaceAddress, nftAddress, onClose }) {
-    ///////////////////
-    //  State Hooks  //
-    ///////////////////
     const [newListingPrice, setNewListingPrice] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
 
-    /////////////////////
-    //  Notifications  //
-    /////////////////////
     const dispatch = useNotification();
-
-    ////////////////////////
-    // Contract Functions //
-    ////////////////////////
 
     // Contract function: updateListing
     const { runContractFunction: updateListing } = useWeb3Contract({
@@ -32,10 +22,6 @@ export default function UpdateListingModal({ isVisible, tokenId, marketplaceAddr
             newPrice: ethers.utils.parseEther(newListingPrice || "0"),
         },
     });
-
-    ///////////////////////
-    // Handler Functions //
-    ///////////////////////
 
     // Handle update listing price function
     const handleUpdatePrice = async () => {

@@ -17,17 +17,10 @@ export default function OwnerModal({
     cuttedSellerAddress,
     onClose,
 }) {
-    ///////////////////
-    //  State Hooks  //
-    ///////////////////
     const [showPriceModal, setShowPriceModal] = useState(false);
     const hidePriceModal = () => setShowPriceModal(false);
     const [showCancelModal, setshowCancelModal] = useState(false);
     const hideCancelModal = () => setshowCancelModal(false);
-
-    ///////////////////////
-    // Handler Functions //
-    ///////////////////////
 
     // Handle update listing success function
     const handlePriceUpdateButton = async () => {

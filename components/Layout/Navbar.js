@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Header({ children }) {
+export default function Navbar({ children }) {
     return (
         <div className="navbar">
             <div className="navbarButton">

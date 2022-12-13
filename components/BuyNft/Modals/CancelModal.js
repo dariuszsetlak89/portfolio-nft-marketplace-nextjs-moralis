@@ -5,19 +5,9 @@ import { nftMarketplaceAbi } from "../../../constants";
 import LoadingSpinner from "../../Animations/LoadingSpinner";
 
 export default function CancelListingModal({ isVisible, tokenId, marketplaceAddress, nftAddress, onClose }) {
-    ///////////////////
-    //  State Hooks  //
-    ///////////////////
     const [isLoading, setIsLoading] = useState(false);
 
-    /////////////////////
-    //  Notifications  //
-    /////////////////////
     const dispatch = useNotification();
-
-    ////////////////////////
-    // Contract Functions //
-    ////////////////////////
 
     // Contract function: CancelListing
     const { runContractFunction: cancelListing } = useWeb3Contract({
@@ -29,10 +19,6 @@ export default function CancelListingModal({ isVisible, tokenId, marketplaceAddr
             tokenId: tokenId,
         },
     });
-
-    ///////////////////////
-    // Handler Functions //
-    ///////////////////////
 
     // Handle cancel listing function
     const handleCancelListing = async () => {

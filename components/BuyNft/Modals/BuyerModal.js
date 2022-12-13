@@ -17,15 +17,8 @@ export default function BuyerModal({
     cuttedSellerAddress,
     onClose,
 }) {
-    ///////////////////
-    //  State Hooks  //
-    ///////////////////
     const [showBuyModal, setShowBuyModal] = useState(false);
     const hideBuyModal = () => setShowBuyModal(false);
-
-    ///////////////////////
-    // Handler Functions //
-    ///////////////////////
 
     // Handle update listing success function
     const handleBuyButton = async () => {
